@@ -7,37 +7,41 @@
  * # AboutCtrl
  * Controller of the exercieDosApp
  */
-angular.module('exercieDosApp')
-	.factory('mercadoLibre', ["$stateParams","$http","$log",function($stateParams,$http,$log){
-	var MercadoLibre= function(){
+angular.module('exercieDosApp').factory('MercadoLibre', ["$stateParams","$http","$log",function($stateParams,$http,$log){
+	var MercadoLibre = function(){
 		this.listaArticulos = [];
     	this.busy = false;
-    	this.after = '';
+		this.after = ''
     };
 
     MercadoLibre.prototype.nextPage = function() {
-    if (this.busy) {return}
-   else{ this.busy = true;}
+    	if (this.busy) {
+    		return
+    	}
 
-    var url = 'https://api.mercadolibre.com/sites/MLU/search?category=' + this.after + $stateParams.idCategory ;
-    $http.get(url, {params:{'limit':60}})
-    					.then(function(response) {
-     						 var listaArticulos = response.data.results;
-     						 for (var i = 0; i < listaArticulos.length; i++) {
-     						   this.listaArticulos.push(listaArticulos[i].data.results);
-     						 }
-     						 this.after = "t3_" + this.listaArticulos[this.listaArticulos.length - 1];
-     						 this.busy = false;
-     						 $log.debug(listaArticulos);
-   						 }.bind(this));
- 													 };
+    	this.busy = true;
+    	var url = 'https://api.mercadolibre.com/sites/MLU/search?category=' + $stateParams.idCategory ;
+    	$http.get(url).then(function(response) {
+			var listaArticulos = response.data.results;
 
- 		 return MercadoLibre;
+			for (var i = 0; i < listaArticulos.length; i++) {
+				this.listaArticulos.push(listaArticulos[i]);
+			}
+
+			this.after = "t3_" + this.listaArticulos[this.listaArticulos.length - 1];
+			this.busy = false;
+		}.bind(this));
+	};
+
+ 	return MercadoLibre;
 }])
 
-  .controller('TableCategoriesCtrl', [
-  	"$scope","$log","$http","$stateParams","mercadoLibre",
-  		function($scope, $log, $http,$stateParams, mercadoLibre) {
+angular.module('exercieDosApp').controller('TableCategoriesCtrl', [
+  	"$scope","$log","$http","$stateParams","MercadoLibre",
+	function($scope, $log, $http,$stateParams, MercadoLibre) {
+		$scope.meli = new MercadoLibre();
+		$scope.listaArticulos = $scope.meli.listaArticulos;
+
 
    				//no se si funciona
   		/*	$scope.offset= 0;
@@ -46,9 +50,9 @@ angular.module('exercieDosApp')
     		};
    				//no se si funciona 
    		*/
-   		$scope.merca = new MercadoLibre();
+   		/*$scope.merca = new mercadoLibre();
    		$scope.listaArticulos= $scope.merca.listaArticulos;
-   		$log.debug($scope.merca)
+   		$log.debug($scope.merca)*/
 /*
    	//PARA TODA LA PÁGINA
    		$log.debug($stateParams)
