@@ -1,0 +1,29 @@
+<div id="myModal" class="modal fade" role="dialog" ng-controller="TableCategoriesCtrl">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Informacion del Vendedor</h4>
+      </div>
+
+      <div class="modal-body">
+            <div class="col-md-4">NICKNAME: </div>   <div class="col-md-8">{{datosVendedor.nickname}}</div>
+            <div class="col-md-4">FECHA DE REGISTRO</div>   <div class="col-md-8">{{datosVendedor.registration_date ||date}}</div>
+            <div class="col-md-4">Cantidad De ventas</div>   <div class="col-md-8">{{datosVendedor.seller_reputation.transactions.total}}</div>
+            <div class="col-md-4">Link al perfil</div>   <div class="col-md-8"><a ng-href="datosVendedor.permalink">click aqui</a></div>
+            <div class="col-md-4"> USUARIO</div>   <div class="col-md-8">{{usuario.nickname}}</div>
+      </div>
+      <br><br>
+      <div class="modal-footer">
+      <br><br>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

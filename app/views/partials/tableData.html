@@ -1,0 +1,63 @@
+
+				
+<div class="container" >
+	<div class="row" infinite-scroll='meli.nextPage()' infinite-scroll-disabled='meli.busy' infinite-scroll-distance='1'>
+
+	<div class='col-md-12'  ng-repeat="$index in listaArticulos">
+
+					
+		<div class="col-md-12 bord">
+			<div class="col-md-6">ID</div> <div class="col-md-6">{{listaArticulos[$index].id}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">TÍTULO</div>  <div class="col-md-6">{{listaArticulos[$index].title}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">IMAGEN</div>  <div class="col-md-6"><img src="{{listaArticulos[$index].thumbnail}}"></img></div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">PRECIO</div>  <div class="col-md-6">{{listaArticulos[$index].price +" "+ listaArticulos[$index].currency_id}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">MERCADO PAGO</div>  <div class="col-md-6">{{listaArticulos[$index].accepts_mercadopago}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">CONDICIÓN DEL PRODUCTO </div> <div class="col-md-6">{{listaArticulos[$index].condition}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6"> TIPO DE PUBLICACIÓN</div><div class="col-md-6">{{listaArticulos[$index].listing_type_id}}</div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">TIEMPO DE FINALIZACIÓN</div><div class="col-md-6"><input type="text" ng-model="listaArticulos[$index].stop_time "></div>
+		</div>
+
+		<div class="col-md-12 bord">
+			<div class="col-md-6">INFORMACIÓN DEL VENDEDOR</div> <div class="col-md-6"><button type="button"class="btn btn-succes btn-lg" ng-click="requestSellerInfo(listaArticulos, $index)" data-toggle="modal" data-target="#myModal"></button></div>
+		</div>
+			
+
+		<div class="col-md-12 rigth">
+			<div class="col-md-10"></div> <a ng-href="{{listaArticulos[$index].permalink}}" ><div class="col-md-2" style="background-color: red;"><i class="glyphicon glyphicon-share-alt" style="margin-left: 29px"></i></div></a>
+		</div>
+			<br><br>
+		</div>
+
+		<!--<span >
+          <a title="Cargar Más" class="btn btn-sm btn-default paginator" selected-page="{{$index}}" ng-click="change($index)">
+           Cargar más...
+          </a>
+        </span>-->
+	  <div ng-show='reddit.busy'>Loading data...</div>
+
+	</div>
+</div>
+
+<modal-Seller></modal-Seller>
+
